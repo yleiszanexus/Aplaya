@@ -1,0 +1,28 @@
+.dt-buttons .dt-button{
+	background: #343a40!important;
+}
+.page-item.active .page-link{
+    background-color: #343a40!important;
+    border-color: #343a40!important;
+}
+html body .navbar-dark .mailbox .message-center{
+	height: auto!important;
+	max-height: 317px;
+}
+.preloader{
+	width: 100%;
+    height: 100%;
+    position: absolute;
+    margin: auto;
+    z-index: 99;
+    background: rgba(255, 255, 255, 0.8);
+}
+.preloader .spinner-grow{
+	position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 100;
+}

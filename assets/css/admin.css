@@ -1,0 +1,4 @@
+html body .navbar-dark .mailbox .message-center {
+    height: auto!important;
+    max-height: 317px;
+}
