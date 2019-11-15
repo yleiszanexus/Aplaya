@@ -1,3 +1,0 @@
-<form>
-	<?= $test ?>
-</form>

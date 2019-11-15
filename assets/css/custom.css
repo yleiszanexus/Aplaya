@@ -26,3 +26,10 @@ html body .navbar-dark .mailbox .message-center{
     margin: auto;
     z-index: 100;
 }
+.table-img{
+    max-width: 100px;
+    max-height: 100px;
+}
+.left-sidebar{
+    z-index: 1000!important;
+}

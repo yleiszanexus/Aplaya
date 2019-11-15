@@ -342,4 +342,22 @@ class Admin extends CI_Controller {
 		$this->template->set('title', 'Admin | Room Management');
 		$this->template->loadSub('admin','content','admin/room_management', $data);
 	}
+
+	public function roomAdd(){
+		logged_check();
+		$this->template->setJs('js', array(
+			base_url('assets/node_modules/summernote/dist/summernote-bs4.min.js'),
+			base_url('assets/node_modules/switchery/dist/switchery.min.js'),
+			base_url('assets/js/admin/room_add.js')
+		));
+		$this->template->setCss('css', array(
+			'node_modules/summernote/dist/summernote-bs4.css',
+			'node_modules/switchery/dist/switchery.min.css'
+		));
+		$data = array(
+			'user' => $this->Admin_model->get_user($this->session->userdata('user')->id),
+		);
+		$this->template->set('title', 'Admin | Add Room');
+		$this->template->loadSub('admin','content','admin/room_add', $data);
+	}
 }
