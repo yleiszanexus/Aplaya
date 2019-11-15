@@ -360,4 +360,93 @@ class Admin extends CI_Controller {
 		$this->template->set('title', 'Admin | Add Room');
 		$this->template->loadSub('admin','content','admin/room_add', $data);
 	}
+
+	public function amenitiesManagement(){
+		logged_check();
+		$this->template->setJs('js', array(
+			base_url('assets/node_modules/datatables.net/js/jquery.dataTables.min.js'),
+			base_url('assets/node_modules/datatables.net-bs4/js/dataTables.responsive.min.js'),
+			base_url('assets/js/dataTablesButtons/dataTables.buttons.min.js'),
+			base_url('assets/js/dataTablesButtons/buttons.flash.min.js'),
+			base_url('assets/js/dataTablesButtons/jszip.min.js'),
+			base_url('assets/js/dataTablesButtons/pdfmake.min.js'),
+			base_url('assets/js/dataTablesButtons/vfs_fonts.js'),
+			base_url('assets/js/dataTablesButtons/buttons.html5.min.js'),
+			base_url('assets/js/dataTablesButtons/buttons.print.min.js'),
+			base_url('assets/node_modules/dropify/dist/js/dropify.min.js'),
+			base_url('assets/js/admin/amenities_management.js'),
+		));
+		$this->template->setCss('css', array(
+			'/node_modules/dropify/dist/css/dropify.min.css'
+		));
+
+		$data = array(
+			'user' => $this->Admin_model->get_user($this->session->userdata('user')->id),
+			// 'rooms' => $this->Admin_model->get_rooms(),
+		);
+		$this->template->set('title', 'Admin | Amenites Management');
+		$this->template->loadSub('admin','content','admin/amenities_management', $data);
+	}
+
+	public function amenitiesAddManagement(){
+		$data = array();
+		$this->form_validation->set_rules('name', 'Name', 'required');
+
+		if ($this->form_validation->run() == FALSE) {
+			$res = array(
+				'title'		=> 'Warning!',
+				'content'	=> validation_errors(),
+				'type'		=> 'red',
+			);
+			echo json_encode($res);
+			exit();
+
+		}else{
+			if (!empty($_FILES)) {
+				$filename = 'amenity_'. preg_replace('/ -/', '_', $this->input->post('name')). '_' .time();
+				$config['file_name'] = $filename;
+				$config['upload_path'] = './assets/images/amenities/';
+				$config['allowed_types'] = 'jpeg|jpg|png';
+
+				$this->load->library('upload', $config);
+				if ($this->upload->do_upload('photo')) {
+					$data = $this->upload->data();
+					$config['image_library'] = 'gd2';
+					$config['source_image'] = './assets/images/amenities/'.$data['file_name'];
+					$config['create_thumb'] = FALSE;
+					$config['maintain_ratio'] = TRUE;
+					$config['width'] = 350;
+					$config['height'] = 350;
+					$config['new_image'] = './assets/images/amenities/'. $data['file_name'];
+
+					$this->image_lib->initialize($config);
+					$this->image_lib->resize();
+
+					$data = array(
+						'photo' => $data['file_name'], 
+						'name' => $this->input->post('name'), 
+						'description' => $this->input->post('desc'), 
+					);
+				}
+			}else{
+				$data = array(
+					'name' => $this->input->post('name'), 
+					'description' => $this->input->post('desc'), 
+				);
+			}
+			$query = $this->Admin_model->add_amenities($data);
+
+			if ($query == TRUE) {
+				$res = array(
+					'title' => 'Success',
+					'content' => 'Successfully added!',
+					'type' => 'green',
+					'reload' => TRUE
+				);
+
+				echo json_encode($res);
+				exit();
+			}
+		}
+	}
 }

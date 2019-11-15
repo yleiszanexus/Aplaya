@@ -102,5 +102,14 @@ class Admin_model extends CI_Model{
 		
 		return $result;
 	}
+
+	public function add_amenities($data){
+		$this->db->insert('amenities', $data);
+		if ($this->db->affected_rows()) {
+			return TRUE;
+		}else{
+			return FALSE;
+		}
+	}
 	
 }

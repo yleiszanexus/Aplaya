@@ -103,7 +103,7 @@
                     <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-layout"></i><span class="hide-menu">Rooms</span></a>
                         <ul aria-expanded="false" class="collapse">
                             <li><a href="<?= base_url('admin/roommanagement'); ?>">Rooms</a></li>
-                            <li><a href="app-calendar.html">Amenities</a></li>
+                            <li><a href="<?= base_url('admin/amenitiesmanagement'); ?>">Amenities</a></li>
                             <li><a href="app-calendar.html">Gallery</a></li>
                         </ul>
                     </li>
