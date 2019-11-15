@@ -342,4 +342,5 @@ class Admin extends CI_Controller {
 		$this->template->set('title', 'Admin | Room Management');
 		$this->template->loadSub('admin','content','admin/room_management', $data);
 	}
+	
 }
