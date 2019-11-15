@@ -48,9 +48,8 @@
                                 <form enctype="multipart/form-data" class="form-horizontal form-material" action="<?= base_url('admin/profile/') . $user->id ?>" method="post">
                                     <div class="form-group">
                                         <label class="col-md-12">Display Photo</label>
-                                        <div class="col-md-12">
-                                            <input type="file" name="photo" />
-                                            <input type="hidden" name="prev_photo" value="<?= $user->photo ?>">
+                                        <div class="col-md-6">
+                                            <input type="file" id="input-file-disable-remove" class="dropify" data-show-remove="false" data-default-file="<?= base_url('assets/images/users/') . $user->photo ?>" name="photo" accept="image/*"/>
                                         </div>
                                     </div>
                                     <div class="form-group">

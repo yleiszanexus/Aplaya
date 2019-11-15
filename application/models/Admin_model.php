@@ -26,6 +26,7 @@ class Admin_model extends CI_Model{
 		$this->db->select('users.*, user_role.type');
 		$this->db->from('users');
 		$this->db->join('user_role', 'users.role_id = user_role.id');
+		$this->db->where_not_in('users.id', $this->session->userdata('user')->id);
 		$this->db->where($data);
 		$query = $this->db->get();
 		$result = $query->result();
@@ -94,14 +95,12 @@ class Admin_model extends CI_Model{
 		}
 	}
 
-	public function deactivatUser($data, $id){
-		$this->db->where('id', $id);
-		$this->db->update($data);
-		if($this->db->affected_rows()){
-			return TRUE;
-		}else{
-			return FALSE;
-		}
+	public function get_rooms(){
+		$this->db->select('*');
+		$query = $this->db->get('rooms');
+		$result = $query->result();
+		
+		return $result;
 	}
 	
 }

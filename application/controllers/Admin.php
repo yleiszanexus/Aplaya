@@ -72,6 +72,13 @@ class Admin extends CI_Controller {
 
 	public function profile($id=null, $change_pass=null){
 		logged_check();
+		$this->template->setCss('css', array(
+			'/node_modules/dropify/dist/css/dropify.min.css'
+		));	
+		$this->template->setJs('js', array(
+			base_url('assets/node_modules/dropify/dist/js/dropify.min.js'),
+			base_url('assets/js/admin/profile.js')
+		));
 		if($id != null){
 			if($change_pass != null){
 				$this->form_validation->set_rules('old-pass', 'Old Password', 'required');
@@ -182,7 +189,8 @@ class Admin extends CI_Controller {
 			'/node_modules/dropify/dist/css/dropify.min.css'
 		));
 		$users_query = array(
-			'type !=' => 'customer'
+			'type !=' => 'customer',
+			'active' => 1,
 		);
 		if($add != null){
 			$this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[users.email]');
@@ -292,13 +300,46 @@ class Admin extends CI_Controller {
 	}
 
 	public function deactivateUser($id){
-		$data = array('active', 0);
-		$query = $this->Admin_model->deactivatUser($data, $id);
+		$data = array('active'=>0);
+		$query = $this->Admin_model->profle_update($data, $id);
 		if($query == TRUE){
-			set_flash('success', 'User removed!', 'admin/usermanagement');
+			$response = array(
+				'title' => 'Success',
+				'content' => 'Users deactivated!',
+				'type' => 'green'
+			);
+			echo json_encode($response);
+			exit();
 		}else{
-			set_flash('danger', 'Error occurred, please try again!', 'admin/usermanagement');
+			$response = array(
+				'title' => 'Error',
+				'content' => 'Please try again!',
+				'type' => 'red'
+			);
+			echo json_encode($response);
+			exit();
 		}
 	}
 
+	public function roomManagement(){
+		logged_check();
+		$this->template->setJs('js', array(
+			base_url('assets/node_modules/datatables.net/js/jquery.dataTables.min.js'),
+			base_url('assets/node_modules/datatables.net-bs4/js/dataTables.responsive.min.js'),
+			base_url('assets/js/dataTablesButtons/dataTables.buttons.min.js'),
+			base_url('assets/js/dataTablesButtons/buttons.flash.min.js'),
+			base_url('assets/js/dataTablesButtons/jszip.min.js'),
+			base_url('assets/js/dataTablesButtons/pdfmake.min.js'),
+			base_url('assets/js/dataTablesButtons/vfs_fonts.js'),
+			base_url('assets/js/dataTablesButtons/buttons.html5.min.js'),
+			base_url('assets/js/dataTablesButtons/buttons.print.min.js'),
+			base_url('assets/js/admin/room_management.js'),
+		));
+		$data = array(
+			'user' => $this->Admin_model->get_user($this->session->userdata('user')->id),
+			'rooms' => $this->Admin_model->get_rooms(),
+		);
+		$this->template->set('title', 'Admin | Room Management');
+		$this->template->loadSub('admin','content','admin/room_management', $data);
+	}
 }

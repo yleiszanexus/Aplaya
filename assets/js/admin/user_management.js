@@ -107,17 +107,37 @@ $(document).ready(function(){
     });
 
     $(document).on('click', '.action-remove', function(){
-        alert('test');
         var id = $(this).data('id');
-        console.log(id);
-        $.ajax({
-            url: '/admin/deactivateuser/'+id,
-            type: 'post',
-            data: id,
-            dataType: 'json',
-            success: function(res){
-                console.log(res);
+        $.confirm({
+            title: 'Warning!',
+            content: 'Are you sure to deactivate this user?',
+            type: 'orange',
+            buttons: {
+                confirm: function () {
+                    $.ajax({
+                        url: '/admin/deactivateuser/' + id,
+                        data: id,
+                        type: 'post',
+                        dataType: 'json',
+                        success: function(res){
+                            $.alert({
+                                title: res.title,
+                                content: res.content,
+                                type: res.type,
+                                buttons: {
+                                    ok: function(){
+                                        location.reload();
+                                    }
+                                }
+                            });
+                        }
+                    });
+                },
+                cancel: function () {
+                }
             }
         });
+
     });
+
 });
