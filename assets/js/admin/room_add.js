@@ -1,6 +1,13 @@
 $(document).ready(function(){
 	$('#description').summernote({
-		height: 300
+		height: 300,
+		toolbar: [
+			['style', ['bold', 'italic', 'underline', 'clear']],
+		    ['font', ['strikethrough', 'superscript', 'subscript']],
+		    ['fontsize', ['fontsize']],
+		    ['para', ['ul', 'ol', 'paragraph']],
+		    ['height', ['height']]
+		]
 	});
 
 	$('.js-switch').each(function () {
@@ -16,4 +23,8 @@ $(document).ready(function(){
 			$('#sale_input').hide();
 		}
 	};
+
+	$('.select2').select2();
+
+	$('#room_photo').dropify();
 });

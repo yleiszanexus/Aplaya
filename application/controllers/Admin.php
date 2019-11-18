@@ -348,14 +348,21 @@ class Admin extends CI_Controller {
 		$this->template->setJs('js', array(
 			base_url('assets/node_modules/summernote/dist/summernote-bs4.min.js'),
 			base_url('assets/node_modules/switchery/dist/switchery.min.js'),
+			base_url('assets/node_modules/select2/dist/js/select2.full.min.js'),
+			base_url('assets/node_modules/multiselect/js/jquery.multi-select.js'),
+			base_url('assets/node_modules/dropify/dist/js/dropify.min.js'),
 			base_url('assets/js/admin/room_add.js')
 		));
 		$this->template->setCss('css', array(
 			'node_modules/summernote/dist/summernote-bs4.css',
-			'node_modules/switchery/dist/switchery.min.css'
+			'node_modules/switchery/dist/switchery.min.css',
+			'node_modules/select2/dist/css/select2.min.css',
+			'node_modules/multiselect/css/multi-select.css',
+			'node_modules/dropify/dist/css/dropify.min.css',
 		));
 		$data = array(
 			'user' => $this->Admin_model->get_user($this->session->userdata('user')->id),
+			'amenities' => $this->Admin_model->get_amenities(),
 		);
 		$this->template->set('title', 'Admin | Add Room');
 		$this->template->loadSub('admin','content','admin/room_add', $data);

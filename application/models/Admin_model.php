@@ -112,4 +112,11 @@ class Admin_model extends CI_Model{
 		}
 	}
 	
+	public function get_amenities(){
+		$this->db->select('*');
+		$query = $this->db->get('amenities');
+		$result = $query->result();
+		
+		return $result;
+	}
 }

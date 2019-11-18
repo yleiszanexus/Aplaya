@@ -9,7 +9,6 @@
     <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url('assets/images/favicon.png') ?>">
 	<title><?= $title ?></title>
 	<link href="<?= base_url('assets/node_modules/toast-master/css/jquery.toast.css') ?>" rel="stylesheet">
-	<link href="<?= base_url('assets/css/style/style.min.css') ?>" rel="stylesheet">
     <link href="<?= base_url('assets/css/custom.css') ?>" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/jquery-confirm/jquery-confirm.min.css') ?>">
 	<?php if(isset($css)){
@@ -17,6 +16,7 @@
 			echo '<link rel="stylesheet" type="text/css" href="'. base_url('assets/') . $cssextra . '">';
 		}
 	}?>
+	<link href="<?= base_url('assets/css/style/style.min.css') ?>" rel="stylesheet">
 </head>
 <body class="horizontal-nav skin-default fixed-layout boxed">
 	<div class="preloader">
@@ -91,14 +91,7 @@
                             <li><a href="<?= base_url('admin/logout') ?>"><i class="fa fa-power-off"></i> Logout</a></li>
                         </ul>
                     </li>
-                    <li class="nav-small-cap">--- PERSONAL</li>
-                    <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="icon-speedometer"></i><span class="hide-menu">Dashboard <span class="badge badge-pill badge-cyan ml-auto">4</span></span></a>
-                        <ul aria-expanded="false" class="collapse">
-                            <li><a href="index.html">Minimal </a></li>
-                            <li><a href="index2.html">Analytical</a></li>
-                            <li><a href="index3.html">Demographical</a></li>
-                            <li><a href="index4.html">Modern</a></li>
-                        </ul>
+                    <li> <a class="waves-effect waves-dark" href="<?= base_url('admin') ?>" aria-expanded="false"><i class="icon-speedometer"></i><span class="hide-menu">Dashboard</span></a>
                     </li>
                     <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-layout"></i><span class="hide-menu">Rooms</span></a>
                         <ul aria-expanded="false" class="collapse">
